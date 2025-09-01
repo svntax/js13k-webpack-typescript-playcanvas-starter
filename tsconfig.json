@@ -5,6 +5,7 @@
     "baseUrl": "./",
     "sourceMap": false,
     "module": "ESNext",
+    "moduleResolution": "node"
   },
   "include": ["src/**/*", "typedefs/*"]
 }

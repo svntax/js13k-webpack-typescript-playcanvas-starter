@@ -17,6 +17,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "html-minimizer-webpack-plugin": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
+    "playcanvas": "^2.10.6",
     "raw-loader": "^4.0.2",
     "roadroller": "^2.1.0",
     "ts-loader": "^9.5.1",

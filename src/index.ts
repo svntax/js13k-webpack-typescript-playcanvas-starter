@@ -1,91 +1,32 @@
-import croissantImage from "../assets/croissant.png";
-import { clamp } from "./math";
+import * as pc from 'playcanvas';
 
-const canvas: HTMLCanvasElement = document.createElement("canvas");
-const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-const MOVING_SPEED = 2;
-const width = 320;
-const height = 240;
+// create an application
+const canvas = document.getElementById('application') as HTMLCanvasElement;
+const app = new pc.Application(canvas);
+app.setCanvasResolution(pc.RESOLUTION_AUTO);
+app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+app.start();
 
-canvas.id = "game";
-canvas.width = width;
-canvas.height = height;
-const div = document.createElement("div");
-div.appendChild(canvas);
-document.body.appendChild(canvas);
-
-const image = new Image();
-image.src = croissantImage;
-
-const player: pos = {
-  x: width / 2,
-  y: height / 2,
-};
-
-const inputState: InputState = {
-  left: false,
-  right: false,
-  up: false,
-  down: false,
-};
-
-function tick(t: number) {
-  requestAnimationFrame(tick);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (inputState.left) player.x -= MOVING_SPEED;
-  if (inputState.right) player.x += MOVING_SPEED;
-  if (inputState.up) player.y -= MOVING_SPEED;
-  if (inputState.down) player.y += MOVING_SPEED;
-  player.x = clamp(player.x, 0, canvas.width - 16);
-  player.y = clamp(player.y, 0, canvas.height - 16);
-
-  ctx.drawImage(image, player.x, player.y);
-}
-
-requestAnimationFrame(tick);
-
-window.addEventListener("keydown", (e: KeyboardEvent) => {
-  switch (e.key) {
-    case "ArrowLeft":
-      inputState.left = true;
-      break;
-    case "ArrowRight":
-      inputState.right = true;
-      break;
-    case "ArrowUp":
-      inputState.up = true;
-      break;
-    case "ArrowDown":
-      inputState.down = true;
-      break;
-  }
+// create a camera
+const camera = new pc.Entity();
+camera.addComponent('camera', {
+    clearColor: new pc.Color(0.3, 0.3, 0.7)
 });
+camera.setPosition(0, 0, 3);
+app.root.addChild(camera);
 
-window.addEventListener("keyup", (e: KeyboardEvent) => {
-  switch (e.key) {
-    case "ArrowLeft":
-      inputState.left = false;
-      break;
-    case "ArrowRight":
-      inputState.right = false;
-      break;
-    case "ArrowUp":
-      inputState.up = false;
-      break;
-    case "ArrowDown":
-      inputState.down = false;
-      break;
-  }
+// create a light
+const light = new pc.Entity();
+light.addComponent('light');
+light.setEulerAngles(45, 45, 0);
+app.root.addChild(light);
+
+// create a box
+const box = new pc.Entity();
+box.addComponent('model', {
+    type: 'box'
 });
+app.root.addChild(box);
 
-interface InputState {
-  left: boolean;
-  right: boolean;
-  up: boolean;
-  down: boolean;
-}
-
-interface pos {
-  x: number;
-  y: number;
-}
+// rotate the box
+app.on('update', (dt: number) => box.rotate(10 * dt, 20 * dt, 30 * dt));

@@ -13,7 +13,7 @@ module.exports = merge(common, {
     usedExports: true,
     minimizer: [
       new TerserJSPlugin({
-        terserOptions: { compress: true, mangle: { properties: true } },
+        terserOptions: { compress: true, mangle: { properties: false } },
       }),
       new HtmlMinimizerPlugin({minimizerOptions: { minifyJS: false}})
     ],
@@ -25,4 +25,7 @@ module.exports = merge(common, {
   plugins: [
     new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerMode: "static" }),
   ],
+  externals: {
+    playcanvas: "pc"
+  }
 });
