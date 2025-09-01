@@ -1,3 +1,9 @@
+## About this fork
+
+This fork adds support for PlayCanvas 2.10.6 for the js13kGames 2025 jam. It uses the npm package for dev, and the CDN hosted by js13k for prod. Run the project to see the [example rotating box scene](https://developer.playcanvas.com/user-manual/engine/standalone/) from PlayCanvas's documentation.
+
+Below is the original README.
+
 ## Purpose
 
 The purpose of this project is to help make building [JS13k](https://js13kgames.com/) projects easier for folks who are familiar with the JavaScript ecosystem but don't want to go through the hassle of setting up a JS13k-specific build environment. The bulk of this project is a [Webpack](https://webpack.js.org/) config that does the following: 
